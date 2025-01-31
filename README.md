@@ -14,16 +14,20 @@ A simple API that returns an intern email, current datetime in ISO 8601 format, 
     ```bash
     uvicorn main:app --host 0.0.0.0 --port 8000
     ```
-4. Open a web browser and navigate to `http://localhost:8000/` to test the API.
+4. Open a web browser and navigate to `http://127.0.0.1:8000/` to test the API.
 
 
 ## API Documentation
 ### Endpoint
-* `GET /`: Returns the current datetime in ISO 8601 format.
+* `GET /`: Returns the email, current datetime in ISO 8601 format, and github url.
 
 ### Request/Response Format
 * Request: None
-* Response: JSON object with a single key-value pair: `"current_datetime": "2025-01-30T09:30:00Z"`
-
-## Deployment
-The API is designed to be deployed on a cloud platform or a containerization service like Docker. Ensure that the API has a fast response time (< 500ms).
+* Response:
+  ```
+  {
+      "email": "peteroyelegbin@gmail.com",
+      "current_datetime": "2025-01-31T21:12:02.158314+00:00",
+      "github_url": "https://github.com/PeterOyelegbin/hng12-basic-info"
+  }
+  ```
