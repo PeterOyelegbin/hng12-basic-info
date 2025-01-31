@@ -16,7 +16,7 @@ app.add_middleware(
 
 @app.get("/basic-info")
 async def home():
-    current_datetime = datetime.now(timezone.utc).isoformat()
+    current_datetime = datetime.now(timezone.utc)..strftime("%Y-%m-%dT%H:%M:%SZ")
     response = {
         "email": "peteroyelegbin@gmail.com",
         "current_datetime": current_datetime,
