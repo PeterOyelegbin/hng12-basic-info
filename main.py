@@ -14,7 +14,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/")
+@app.get("/basic-info")
 async def home():
     current_datetime = datetime.now(timezone.utc).isoformat()
     response = {
