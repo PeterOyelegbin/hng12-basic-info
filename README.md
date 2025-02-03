@@ -19,6 +19,7 @@ The **Number Classification API** is a FastAPI-based web service that analyzes a
 - **httpx** (Async HTTP requests)
 - **Uvicorn** (ASGI server for FastAPI)
 - **Math library** (Mathematical operations)
+- **Fun Fact API** [numbersapi](http://numbersapi.com/42/math)
 
 ---
 
