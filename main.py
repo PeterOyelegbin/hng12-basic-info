@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Query, Response
 from fastapi.middleware.cors import CORSMiddleware
 import httpx, json
-from utils import is_prime, is_perfect, get_number_properties
+from utils import is_prime, is_perfect, number_properties
 
 app = FastAPI()
 
@@ -26,7 +26,7 @@ async def get_fun_fact(n: int) -> str:
 
 
 @app.get("/api/classify-number")
-async def classify_number(number: str = Query(..., description="Enter number to classify")):
+async def classify_number(number: str = Query(..., description="Enter an number")):
     try:
         number = int(number)
         fun_fact = await get_fun_fact(number)
@@ -34,7 +34,7 @@ async def classify_number(number: str = Query(..., description="Enter number to 
             "number": number,
             "is_prime": is_prime(number),
             "is_perfect": is_perfect(number),
-            "properties": get_number_properties(number),
+            "properties": number_properties(number),
             "digit_sum": sum(map(int, str(abs(number)))),
             "fun_fact": fun_fact,
         }
