@@ -9,14 +9,17 @@ def is_prime(n: int) -> bool:
     return True
 
 def is_perfect(n: int) -> bool:
+    if n < 1:
+        return False
     return sum(i for i in range(1, n) if n % i == 0) == n
 
 def is_armstrong(n: int) -> bool:
-    digits = [int(digit) for digit in str(n)]
+    abs_n = abs(n)  # Consider absolute value for Armstrong check
+    digits = [int(digit) for digit in str(abs_n)]
     power = len(digits)
-    return sum(d ** power for d in digits) == n
+    return sum(d ** power for d in digits) == abs_n
 
-def get_number_properties(n: int):
+def number_properties(n: int):
     properties = []
     if is_armstrong(n):
         properties.append("armstrong")
