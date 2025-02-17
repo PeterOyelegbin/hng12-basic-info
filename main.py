@@ -20,6 +20,10 @@ app.add_middleware(
 async def github_webhook(request: Request):
     try:
         payload = await request.json()
+        print("Received payload:", payload)
+
+        if "forkee" not in payload:
+            return Response(content=json.dumps({"error": "Not a fork event"}), status_code=400, media_type="application/json")
 
         # Check if it's a fork event
         if "forkee" in payload:
@@ -31,7 +35,7 @@ async def github_webhook(request: Request):
             # # Send notification to Slack
             # async with httpx.AsyncClient() as client:
             #     response = await client.post(SLACK_WEBHOOK_URL, json=slack_message)
-            return Response(content=json.dumps({"message": message }), status_code=200, media_type="application/json")
+            return Response(content=json.dumps({"message": message}), status_code=200, media_type="application/json")
             # return Response(content=json.dumps({"status": "Notification sent"}), status_code=int(response.status_code), media_type="application/json")
         else:
             return Response(content=json.dumps({"status": "No forked event!"}), status_code=400, media_type="application/json")
