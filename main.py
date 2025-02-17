@@ -1,7 +1,6 @@
-from fastapi import FastAPI, Query, Response
+from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
-import httpx, json
-from utils import is_prime, is_perfect, number_properties
+import httpx, json, os
 
 app = FastAPI()
 
@@ -14,30 +13,28 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# API for fun facts
-NUMBERS_API_URL = "http://numbersapi.com/{}"
+# Load Slack Webhook URL from environment variables
+# SLACK_WEBHOOK_URL = os.getenv("SLACK_WEBHOOK_URL")
 
-async def get_fun_fact(n: int) -> str:
-    async with httpx.AsyncClient() as client:
-        response = await client.get(f"{NUMBERS_API_URL.format(n)}/math")
-        if response.status_code == 200:
-            return response.text.strip()
-        return "No fun fact available."
-
-
-@app.get("/api/classify-number")
-async def classify_number(number: str = Query(..., description="Enter an number")):
+@app.post("/github-webhook")
+async def github_webhook(request: Request):
     try:
-        number = int(number)
-        fun_fact = await get_fun_fact(number)
-        return {
-            "number": number,
-            "is_prime": is_prime(number),
-            "is_perfect": is_perfect(number),
-            "properties": number_properties(number),
-            "digit_sum": sum(map(int, str(abs(number)))),
-            "fun_fact": fun_fact,
-        }
-    except (Exception, ValueError):
-        return Response(content=json.dumps({"number": number, "error": True}), status_code=400, media_type="application/json")
+        payload = await request.json()
+
+        # Check if it's a fork event
+        if "forkee" in payload:
+            repo_name = payload["repository"]["full_name"]
+            forked_by = payload["forkee"]["owner"]["login"]
+            fork_url = payload["forkee"]["html_url"]
+
+            message = f"🔄 *{forked_by}* just forked *{repo_name}*! 🎉\n🔗 {fork_url}"
+            # # Send notification to Slack
+            # async with httpx.AsyncClient() as client:
+            #     response = await client.post(SLACK_WEBHOOK_URL, json=slack_message)
+            return Response(content=json.dumps({"message": message }), status_code=200, media_type="application/json")
+            # return Response(content=json.dumps({"status": "Notification sent"}), status_code=int(response.status_code), media_type="application/json")
+        else:
+            return Response(content=json.dumps({"status": "No forked event!"}), status_code=400, media_type="application/json")
+    except Exception as e:
+        return Response(content=json.dumps({"error": str(e)}), status_code=500, media_type="application/json")
         
