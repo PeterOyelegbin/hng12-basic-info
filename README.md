@@ -1,4 +1,4 @@
-# GitHub Fork Alert
+# GitHub Fork Event Tracker
 This project is a FastAPI-based integration that listens for fork events on your GitHub repositories and sends a notification to a Slack channel when a repository is forked.
 
 ---
