@@ -8,7 +8,7 @@
             "app_description": "A monitoring system that alert user about a fork event on a github repository.",
             "app_logo": "https://www.hostpapa.com/blog/app/uploads/2022/07/Why-You-Need-An-Application-Performance-Monitoring-Tool-header.jpg",
             "app_name": "GitHub Fork Event Tracker",
-            "app_url": "https://9mwhv2fq-8000.uks1.devtunnels.ms",
+            "app_url": "https://hng12-stage3.onrender.com",
             "background_color": "#000000"
         },
         "integration_category": "Monitoring & Logging",
@@ -31,7 +31,7 @@
                 "default": "PeterOyelegbin/fbck"
             }
         ],
-        "tick_url": "https://9mwhv2fq-8000.uks1.devtunnels.ms/check-repo",
+        "tick_url": "https://hng12-stage3.onrender.com/check-repo",
         "target_url": ""
     }
 }
