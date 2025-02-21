@@ -24,21 +24,22 @@ def get_integration_json(request: Request):
             },
             "descriptions": {
                 "app_name": "GitHub Fork Event Tracker",
-                "app_description": "A monitoring system that alert user about details of the fork event on a github repository.",
+                "app_description": "A monitoring system that notifies users about the details of fork events in a GitHub repository.",
                 "app_url": base_url,
                 "app_logo": "https://www.hostpapa.com/blog/app/uploads/2022/07/Why-You-Need-An-Application-Performance-Monitoring-Tool-header.jpg",
                 "background_color": "#fff"
             },
             "integration_category": "Monitoring & Logging",
             "integration_type": "interval",
-            "is_active": False,
+            "is_active": True,
             "key_features": [
-                "Track a github repository for fork event",
-                "Alert the original repo owner of the event providing the visitor name, time of request, and visitors forked url"
+                "Track a GitHub repository for the fork event",
+                "Alert the original repo owner of the event providing the visitor name, time of request, and visitor forked URL"
             ],
+            "author": "Peter Oyelegbin",
             "settings": [
                 {"label": "repo_name", "type": "text", "required": True, "default": "username/repo"},
-                {"label": "interval", "type": "text", "required": True, "default": "* * * * *"}
+                {"label": "interval", "type": "text", "required": True, "default": "*/30 * * * *"}
             ],
             "tick_url": f"{base_url}/tick",
             "target_url": ""
